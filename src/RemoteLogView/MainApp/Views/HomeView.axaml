@@ -1,0 +1,58 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:customControl="clr-namespace:MainApp.CustomControl"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:viewModels="clr-namespace:MainApp.ViewModels"
+             xmlns:eventArgs="clr-namespace:MainApp.Models.EventArgs"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="MainApp.Views.HomeView"
+             x:DataType="viewModels:HomeViewModel">
+    <UserControl.Resources>
+    <ControlTheme BasedOn="{StaticResource MaterialFlatToggleButton}" TargetType="ToggleButton"
+                  x:Key="RegexToggleButton">
+      <Style Selector="^:checked">
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderBrush" Value="{Binding $self.Foreground}" />
+      </Style>
+    </ControlTheme>
+  </UserControl.Resources>
+  <Grid RowDefinitions="Auto,*" Margin="5">
+    <Grid Grid.Row="0" ColumnDefinitions="*,Auto,Auto" >
+      <TextBox Text="{Binding FilterString}" BorderBrush="{Binding $self.Foreground}" BorderThickness="1"
+               Theme="{StaticResource SoloTextBox}" Watermark="Search field" CornerRadius="32" Margin="8">
+        <TextBox.KeyBindings>
+          <KeyBinding Gesture="Enter" Command="{Binding RefreshCommand}"></KeyBinding>
+        </TextBox.KeyBindings>
+        <TextBox.InnerLeftContent>
+          <Border Height="{Binding $parent[TextBox].Height}" Width="{Binding $self.Bounds.Height}">
+            <avalonia:MaterialIcon HorizontalAlignment="Center" VerticalAlignment="Center" Kind="Magnify" Width="20"
+                                   Height="20" />
+          </Border>
+        </TextBox.InnerLeftContent>
+        <TextBox.InnerRightContent>
+          <ToggleButton ToolTip.Tip="正则表达式 (Regex)" Theme="{StaticResource RegexToggleButton}" Margin="0 5 15 5">
+            <avalonia:MaterialIcon Kind="Regex" />
+          </ToggleButton>
+        </TextBox.InnerRightContent>
+      </TextBox>
+      <ToggleSwitch Grid.Column="1" Margin="10 ,0,0,0" x:Name="AutoScrollEnableSwitch">自动滚动</ToggleSwitch>
+      <Button Grid.Column="2" Content="清空" Margin="10,0,0,0" Command="{Binding ClearCommand}"></Button>
+    </Grid >
+    <customControl:AutoScrollListBox AutoScrollEnabled="{Binding #AutoScrollEnableSwitch.IsChecked}" Grid.Row="1" ItemsSource="{Binding LogsView}" Margin="5" ScrollViewer.VerticalScrollBarVisibility="Auto">
+      <customControl:AutoScrollListBox.ItemTemplate>
+        <DataTemplate DataType="{x:Type eventArgs:LogReceivedEventArgs}">
+          <Grid ColumnDefinitions="60,Auto,40,Auto,*" ToolTip.Tip="{Binding Message}">
+            <TextBlock Grid.Column="0" Text="{Binding Time,StringFormat={}{0:HH:mm:ss}}"/>
+            <GridSplitter Grid.Column="1" VerticalAlignment="Stretch" Width="2"></GridSplitter>
+            <TextBlock Grid.Column="2" Text="{Binding Level}"></TextBlock>
+            <GridSplitter Grid.Column="3" VerticalAlignment="Stretch" Width="2"></GridSplitter>
+            <TextBlock Grid.Column="4" Text="{Binding Message}"></TextBlock>
+          </Grid>
+        </DataTemplate>
+      </customControl:AutoScrollListBox.ItemTemplate>
+    </customControl:AutoScrollListBox>
+    <!-- <ListBox Grid.Row="1" ItemsSource="{Binding LogsView}" Margin="5" ScrollViewer.VerticalScrollBarVisibility="Auto"></ListBox> -->
+  </Grid>
+</UserControl>
