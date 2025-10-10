@@ -2,7 +2,6 @@
 
 namespace MainApp.ViewModels;
 
-public partial class MainWindowViewModel : ObservableObject
+public class MainWindowViewModel : ObservableObject
 {
-    
 }

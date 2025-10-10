@@ -10,7 +10,7 @@ public class AutoScrollListBox : ListBox
     public static readonly StyledProperty<bool> AutoScrollEnabledProperty =
         AvaloniaProperty.Register<AutoScrollListBox, bool>(
             nameof(AutoScrollEnabled),
-            defaultValue: false);
+            false);
 
     protected override Type StyleKeyOverride => typeof(ListBox);
 
@@ -27,13 +27,9 @@ public class AutoScrollListBox : ListBox
         if (change.Property == AutoScrollEnabledProperty)
         {
             if (change.NewValue is true)
-            {
                 Items.CollectionChanged += Items_CollectionChanged;
-            }
             else
-            {
                 Items.CollectionChanged -= Items_CollectionChanged;
-            }
         }
     }
 

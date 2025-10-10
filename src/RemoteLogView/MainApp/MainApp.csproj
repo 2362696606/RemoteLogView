@@ -23,10 +23,11 @@
             <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
         </PackageReference>
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1"/>
-        <PackageReference Include="Material.Avalonia" Version="3.13.1-nightly.0.6" />
-        <PackageReference Include="Material.Avalonia.DataGrid" Version="3.13.1-nightly.0.6" />
-        <PackageReference Include="Material.Avalonia.Dialogs" Version="3.13.1-nightly.0.6" />
-        <PackageReference Include="Material.Icons.Avalonia" Version="3.0.0-preview3.1" />
-        <PackageReference Include="Prism.DryIoc.Avalonia" Version="9.0.537.11300-pre" />
+        <PackageReference Include="Material.Avalonia" Version="3.13.1-nightly.0.6"/>
+        <PackageReference Include="Material.Avalonia.DataGrid" Version="3.13.1-nightly.0.6"/>
+        <PackageReference Include="Material.Avalonia.Dialogs" Version="3.13.1-nightly.0.6"/>
+        <PackageReference Include="Material.Icons.Avalonia" Version="3.0.0-preview3.1"/>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.4-beta1"/>
+        <PackageReference Include="Prism.DryIoc.Avalonia" Version="9.0.537.11300-pre"/>
     </ItemGroup>
 </Project>
